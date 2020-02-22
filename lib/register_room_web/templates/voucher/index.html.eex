@@ -1,0 +1,29 @@
+<h1>Listing Vouchers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Info</th>
+      <th>Due date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for voucher <- @vouchers do %>
+    <tr>
+      <td><%= voucher.token %></td>
+      <td><%= voucher.info %></td>
+      <td><%= voucher.due_date %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.voucher_path(@conn, :show, voucher) %></span>
+        <span><%= link "Edit", to: Routes.voucher_path(@conn, :edit, voucher) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Voucher", to: Routes.voucher_path(@conn, :new) %></span>

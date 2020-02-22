@@ -16,6 +16,7 @@ defmodule RegisterRoomWeb.Router do
   scope "/", RegisterRoomWeb do
     pipe_through :browser
 
+    resources("/vouchers", VoucherController, except: [:delete])
     get "/", PageController, :index
   end
 

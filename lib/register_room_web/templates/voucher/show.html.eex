@@ -1,0 +1,23 @@
+<h1>Show Voucher</h1>
+
+<ul>
+
+  <li>
+    <strong>Token:</strong>
+    <%= @voucher.token %>
+  </li>
+
+  <li>
+    <strong>Info:</strong>
+    <%= @voucher.info %>
+  </li>
+
+  <li>
+    <strong>Due date:</strong>
+    <%= @voucher.due_date %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.voucher_path(@conn, :edit, @voucher) %></span>
+<span><%= link "Back", to: Routes.voucher_path(@conn, :index) %></span>
