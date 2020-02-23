@@ -65,4 +65,71 @@ defmodule RegisterRoom.RegistrationTest do
       assert %Ecto.Changeset{} = Registration.change_voucher(voucher)
     end
   end
+
+  describe "participants" do
+    alias RegisterRoom.Registration.Participant
+
+    @valid_attrs %{email: "some email", firm: "some firm", name: "some name", position: "some position", surname: "some surname"}
+    @update_attrs %{email: "some updated email", firm: "some updated firm", name: "some updated name", position: "some updated position", surname: "some updated surname"}
+    @invalid_attrs %{email: nil, firm: nil, name: nil, position: nil, surname: nil}
+
+    def participant_fixture(attrs \\ %{}) do
+      {:ok, participant} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Registration.create_participant()
+
+      participant
+    end
+
+    test "list_participants/0 returns all participants" do
+      participant = participant_fixture()
+      assert Registration.list_participants() == [participant]
+    end
+
+    test "get_participant!/1 returns the participant with given id" do
+      participant = participant_fixture()
+      assert Registration.get_participant!(participant.id) == participant
+    end
+
+    test "create_participant/1 with valid data creates a participant" do
+      assert {:ok, %Participant{} = participant} = Registration.create_participant(@valid_attrs)
+      assert participant.email == "some email"
+      assert participant.firm == "some firm"
+      assert participant.name == "some name"
+      assert participant.position == "some position"
+      assert participant.surname == "some surname"
+    end
+
+    test "create_participant/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Registration.create_participant(@invalid_attrs)
+    end
+
+    test "update_participant/2 with valid data updates the participant" do
+      participant = participant_fixture()
+      assert {:ok, %Participant{} = participant} = Registration.update_participant(participant, @update_attrs)
+      assert participant.email == "some updated email"
+      assert participant.firm == "some updated firm"
+      assert participant.name == "some updated name"
+      assert participant.position == "some updated position"
+      assert participant.surname == "some updated surname"
+    end
+
+    test "update_participant/2 with invalid data returns error changeset" do
+      participant = participant_fixture()
+      assert {:error, %Ecto.Changeset{}} = Registration.update_participant(participant, @invalid_attrs)
+      assert participant == Registration.get_participant!(participant.id)
+    end
+
+    test "delete_participant/1 deletes the participant" do
+      participant = participant_fixture()
+      assert {:ok, %Participant{}} = Registration.delete_participant(participant)
+      assert_raise Ecto.NoResultsError, fn -> Registration.get_participant!(participant.id) end
+    end
+
+    test "change_participant/1 returns a participant changeset" do
+      participant = participant_fixture()
+      assert %Ecto.Changeset{} = Registration.change_participant(participant)
+    end
+  end
 end

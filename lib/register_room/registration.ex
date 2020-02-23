@@ -63,4 +63,33 @@ defmodule RegisterRoom.Registration do
 
     local_datetime
   end
+
+  alias RegisterRoom.Registration.Participant
+
+  def list_participants do
+    Repo.all(Participant)
+    |> Repo.preload(:voucher)
+  end
+
+  def get_participant!(id), do: Repo.get!(Participant, id) |> Repo.preload(:voucher)
+
+  def create_participant(attrs \\ %{}) do
+    %Participant{}
+    |> Participant.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_participant(%Participant{} = participant, attrs) do
+    participant
+    |> Participant.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_participant(%Participant{} = participant) do
+    Repo.delete(participant)
+  end
+
+  def change_participant(%Participant{} = participant) do
+    Participant.changeset(participant, %{})
+  end
 end
