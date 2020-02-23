@@ -14,6 +14,10 @@ defmodule RegisterRoom.Registration do
     |> voucher_dates_to_local()
   end
 
+  def get_by_token(token) do
+    Repo.get_by(Voucher, token: token)
+  end
+
   def create_voucher(attrs \\ %{}) do
     %Voucher{}
     |> Voucher.changeset(attrs)
