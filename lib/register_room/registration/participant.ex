@@ -12,6 +12,8 @@ defmodule RegisterRoom.Registration.Participant do
     field :surname, :string
     belongs_to(:voucher, Voucher)
 
+    field :token, :string, virtual: true
+
     timestamps(type: :utc_datetime)
   end
 

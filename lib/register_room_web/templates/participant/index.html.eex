@@ -8,6 +8,7 @@
       <th>Firm</th>
       <th>Position</th>
       <th>Email</th>
+      <th>Kupon rabatowy</th>
 
       <th></th>
     </tr>
@@ -20,7 +21,7 @@
       <td><%= participant.firm %></td>
       <td><%= participant.position %></td>
       <td><%= participant.email %></td>
-
+      <td><%= voucher_info(participant) %></td>
       <td>
         <span><%= link "Show", to: Routes.participant_path(@conn, :show, participant) %></span>
         <span><%= link "Edit", to: Routes.participant_path(@conn, :edit, participant) %></span>

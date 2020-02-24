@@ -33,6 +33,15 @@ defmodule RegisterRoomWeb.ParticipantController do
 
   def edit(conn, %{"id" => id}) do
     participant = Registration.get_participant!(id)
+
+    token =
+      case is_integer(participant.voucher_id) do
+        true -> participant.voucher.token
+        false -> ""
+      end
+
+    participant = Map.put(participant, :token, token)
+
     changeset = Registration.change_participant(participant)
     render(conn, "edit.html", participant: participant, changeset: changeset)
   end
@@ -47,6 +56,7 @@ defmodule RegisterRoomWeb.ParticipantController do
         |> redirect(to: Routes.participant_path(conn, :show, participant))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        participant = Map.put(participant, :token, participant_params["token"])
         render(conn, "edit.html", participant: participant, changeset: changeset)
     end
   end

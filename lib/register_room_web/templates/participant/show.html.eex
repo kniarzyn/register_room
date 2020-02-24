@@ -27,6 +27,11 @@
     <%= @participant.email %>
   </li>
 
+  <li>
+    <strong>Kupon rabatowy:</strong>
+    <%= voucher_info(@participant) %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.participant_path(@conn, :edit, @participant) %></span>

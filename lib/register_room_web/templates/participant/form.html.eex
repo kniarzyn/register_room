@@ -25,7 +25,7 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= label f, :token %>
+  <%= label f, :token , "Kupon rabatowy"%>
   <%= text_input f, :token %>
   <%= error_tag f, :token %>
 
